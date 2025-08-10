@@ -23,6 +23,16 @@ public class GlobalExceptions {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ArithmeticException.class)
+    public ResponseEntity<ErrorResponse> handleArithmeticException(ArithmeticException ex,WebRequest request){
+        ErrorResponse errorResponse=new ErrorResponse(
+                LocalDateTime.now(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+        return new ResponseEntity<>(errorResponse,HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneralException(Exception ex,WebRequest request){
         ErrorResponse errorResponse=new ErrorResponse(
